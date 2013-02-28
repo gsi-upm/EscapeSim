@@ -1,5 +1,13 @@
+# Only in first commit files #
+config.props
+handlers/
+nbproject/
+build.xml
+
 *.class
 *.ubiksim
+build/
+dist/
 
 # Package Files #
 *.jar
