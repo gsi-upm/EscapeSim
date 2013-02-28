@@ -1,6 +1,10 @@
 *.class
-
+config.props
+handlers/
+nbproject/
+build.xml
 # Package Files #
 *.jar
 *.war
 *.ear
+*.ubiksim
