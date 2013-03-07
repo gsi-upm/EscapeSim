@@ -39,18 +39,26 @@ public class Fire implements Steppable, Stoppable {
     protected Ubik ubik;
     protected int steps=0;
     protected Int2D initialPosition;
+    protected HomePieceOfFurniture fireFurniture;
+    protected int advanceOfFirePerStep=2;
+    protected int startingSizeOfFire=60;
+    
+    
+    
     
     public Fire(Ubik ubik){
         this.ubik=ubik;
         insertInRandomPosition();
         register();
+
     }
 /**
  * Method with the actions to be performed by fire in each step.
  * @param ss 
  */
-    public void step(SimState ss) {
-       steps++;
+    public void step(SimState ss) {      
+        spreadFire();
+        steps++; 
     }
     
     /**
@@ -59,8 +67,9 @@ public class Fire implements Steppable, Stoppable {
      * @return 
      */
     
-    public boolean tauchingFire(Person p) {
-      return PositionTools.isNeighboring(p.getPosition().x, p.getPosition().y, initialPosition.x, initialPosition.y, steps*2);
+    public boolean tauchingFire(Person p) {      
+      return PositionTools.isNeighboring(p.getPosition().x, p.getPosition().y, initialPosition.x, initialPosition.y,steps*advanceOfFirePerStep + startingSizeOfFire );
+      
     }
     
 
@@ -90,21 +99,27 @@ public class Fire implements Steppable, Stoppable {
     public void insertInDisplay(){
           try{
             //object 3d imported, it must be in the same folder than the second parameter (inside src and build)
-            HomePieceOfFurniture hpof = Representation.createModel("Fire", Fire.class, "fire.dae");//includes a 3D object in the display
+            fireFurniture = Representation.createModel("Fire", Fire.class, "Fire.dae");//includes a 3D object in the display
             MutableInt2D point3D = PositionTools.pointMasonToPoint3D(ubik.getCellSize(),initialPosition.x, initialPosition.y);//the positions in the 3d display are not the same than in the MASON grid
-            hpof.setHeight(100);//changing the size of the flame            
-            hpof.setWidth(300);
-            hpof.setDepth(300);
-            hpof.setX(point3D.x);
-            hpof.setY(point3D.y);
-            ubik.getBuilding().getFloor(0).getHome().addPieceOfFurniture(hpof);
-
-
+            fireFurniture.setHeight(100);//changing the size of the flame            
+            fireFurniture.setWidth(60*ubik.getCellSize());
+            fireFurniture.setDepth(60*ubik.getCellSize());
+            fireFurniture.setX(point3D.x);
+            fireFurniture.setY(point3D.y);
+            ubik.getBuilding().getFloor(0).getHome().addPieceOfFurniture(fireFurniture);
             JOptionPane.showMessageDialog(null, "There is a fire in position " + initialPosition.x + "," +  initialPosition.y);
         }
         catch(Exception ex){            
             ex.printStackTrace();//"Exception inserting the fire in the display"
         }    
+    }
+    
+    
+    private void spreadFire(){      
+            ubik.getBuilding().getFloor(0).getHome().deletePieceOfFurniture(fireFurniture);
+            fireFurniture.setWidth(fireFurniture.getWidth()+advanceOfFirePerStep*ubik.getCellSize());
+            fireFurniture.setDepth(fireFurniture.getDepth()+advanceOfFirePerStep*ubik.getCellSize());
+            ubik.getBuilding().getFloor(0).getHome().addPieceOfFurniture(fireFurniture);           
     }
     
 }
