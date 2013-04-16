@@ -1,7 +1,6 @@
 config.props
 handlers/
 nbproject/
-test/
 build.xml
 readme.md
 manifest.md
