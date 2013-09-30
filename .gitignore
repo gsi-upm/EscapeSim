@@ -10,7 +10,6 @@ timeRecords.txt
 
 
 *.class
-*.ubiksim
 build/
 dist/
 
