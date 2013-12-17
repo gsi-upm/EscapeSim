@@ -36,16 +36,25 @@
 
 package ubiksimdist;
 
+import annas.graph.DefaultArc;
+import annas.graph.Graph;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import sim.app.ubik.Ubik;
 import sim.app.ubik.behaviors.Automaton;
+import sim.app.ubik.behaviors.PositionTools;
 import sim.app.ubik.behaviors.escape.EscapeMonitorAgent;
 import sim.app.ubik.behaviors.escape.Fire;
+import sim.app.ubik.graph.Node;
 import sim.app.ubik.people.PersonHandler;
-
-
+import sim.util.MutableInt2D;
+import sim.app.ubik.furniture.Furniture;
+ import sim.app.ubik.graph.*;
 
 public class EscapeSim extends Ubik {
-    
+
      static int maxTimeForExecution=1500;
      
      /**
@@ -100,6 +109,7 @@ public class EscapeSim extends Ubik {
         //ph.addPersons(20, true, ph.getPersons().get(0));
         //change their name
         ph.changeNameOfAgents("a");
+
    }
     
    
@@ -136,6 +146,7 @@ public class EscapeSim extends Ubik {
     }
     
     
+  
 
 
 }

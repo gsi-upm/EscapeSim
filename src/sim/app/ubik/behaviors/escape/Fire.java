@@ -133,10 +133,13 @@ public class Fire implements Steppable, Stoppable {
     
     
     private void spreadFire(){      
-            ubik.getBuilding().getFloor(0).getHome().deletePieceOfFurniture(fireFurniture);
+            if(fireFurniture!=null){
+                ubik.getBuilding().getFloor(0).getHome().deletePieceOfFurniture(fireFurniture);
+            
             fireFurniture.setWidth(fireFurniture.getWidth()+advanceOfFirePerStep*ubik.getCellSize());
             fireFurniture.setDepth(fireFurniture.getDepth()+advanceOfFirePerStep*ubik.getCellSize());
             ubik.getBuilding().getFloor(0).getHome().addPieceOfFurniture(fireFurniture);           
+            }
     }
     
 }
